@@ -19,6 +19,7 @@ import CardWrapper from "./card-wrapper";
 import { FormSuccess } from "./form-success";
 import { FormError } from "./form-error";
 import { login } from "@/actions/login";
+import GoogleButton from "./google-button";
 
 
 
@@ -97,7 +98,7 @@ const LoginForm = () => {
                </Button>
             </form>
          </Form>
-
+         <GoogleButton />
       </CardWrapper>
    );
 };

@@ -19,6 +19,7 @@ import CardWrapper from "./card-wrapper";
 import { FormSuccess } from "./form-success";
 import { FormError } from "./form-error";
 import { register } from "@/actions/register";
+import GoogleButton from "./google-button";
 
 
 
@@ -59,7 +60,7 @@ const RegisterForm = () => {
       <CardWrapper
          headerLabel="Create an account"
          title="Register"
-         backButtonHref="/auth/login"
+         backButtonHref="/login"
          backButtonLabel="Already have an account"
          showSocial
       >
@@ -130,7 +131,7 @@ const RegisterForm = () => {
                </Button>
             </form>
          </Form>
-
+         <GoogleButton />
       </CardWrapper>
    );
 };

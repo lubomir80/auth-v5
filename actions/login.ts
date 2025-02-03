@@ -1,7 +1,6 @@
 "use server";
 
 import { prisma } from "@/prisma/prisma";
-import bcrypt from "bcryptjs";
 import { LoginSchema, TLoginSchema } from "@/schemas";
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
