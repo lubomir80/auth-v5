@@ -4,8 +4,7 @@ import { prisma } from "@/prisma/prisma";
 import bcrypt from "bcryptjs";
 import { RegisterSchema, TRegisterSchema } from "@/schemas";
 import { generateVerificationToken } from "@/lib/token";
-// import { generateVerificationToken } from "@/lib/token";
-// import { sendVerificationEmail } from "@/lib/mail";
+import sendVerificationEmail from "@/lib/mail";
 
 
 export const register = async (data: TRegisterSchema) => {
@@ -46,10 +45,11 @@ export const register = async (data: TRegisterSchema) => {
          },
       });
 
-      const verificationToken = await generateVerificationToken(email)
       // Generate Verification Token
-      // const verificationToken = await generateVerificationToken(email);
-      // await sendVerificationEmail(lowerCaseEmail, verificationToken.token);
+      const verificationToken = await generateVerificationToken(email)
+      await sendVerificationEmail(lowerCaseEmail, verificationToken.token)
+
+
       return { success: "Email Verification was sent" };
    } catch (error) {
       // Handle the error, specifically check for a 503 error
