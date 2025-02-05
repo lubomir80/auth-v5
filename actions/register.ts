@@ -3,6 +3,7 @@
 import { prisma } from "@/prisma/prisma";
 import bcrypt from "bcryptjs";
 import { RegisterSchema, TRegisterSchema } from "@/schemas";
+import { generateVerificationToken } from "@/lib/token";
 // import { generateVerificationToken } from "@/lib/token";
 // import { sendVerificationEmail } from "@/lib/mail";
 
@@ -44,6 +45,8 @@ export const register = async (data: TRegisterSchema) => {
             password: hashedPassword,
          },
       });
+
+      const verificationToken = await generateVerificationToken(email)
       // Generate Verification Token
       // const verificationToken = await generateVerificationToken(email);
       // await sendVerificationEmail(lowerCaseEmail, verificationToken.token);
