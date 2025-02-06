@@ -24,7 +24,7 @@ export const register = async (data: TRegisterSchema) => {
       // 3) Hash the password
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      // 4)Check to see if user already exists
+      // 4) Check to see if user already exists
       const userExists = await prisma.user.findFirst({
          where: {
             email,
@@ -45,7 +45,7 @@ export const register = async (data: TRegisterSchema) => {
          },
       });
 
-      // Generate Verification Token
+      // 5) Generate Verification Token
       const verificationToken = await generateVerificationToken(email)
       await sendVerificationEmail(lowerCaseEmail, verificationToken.token)
 

@@ -14,3 +14,20 @@ export const getUserById = async (id: string) => {
       return null
    }
 }
+
+export const getUserByEmail = async (email: string) => {
+   const lowerCaseEmail = email.toLowerCase()
+
+   try {
+      const user = await prisma.user.findUnique({
+         where: {
+            email: lowerCaseEmail
+         }
+      })
+      return user
+
+   } catch (error) {
+      console.error(error)
+      return null
+   }
+}
