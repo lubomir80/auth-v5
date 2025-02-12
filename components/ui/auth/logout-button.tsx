@@ -1,19 +1,18 @@
 "use client"
 
 import { Button } from "../button"
+import { signOut } from "next-auth/react";
 
-
-
-
-function LogOut() {
+function LogOutButton() {
 
 
    return (
-      <form>
-         <Button type="submit">Log out</Button>
-
-      </form>
+      <Button
+         type="submit"
+         onClick={() => signOut()}>
+         Log out
+      </Button>
    )
 }
 
-export default LogOut 
+export default LogOutButton 

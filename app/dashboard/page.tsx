@@ -10,7 +10,7 @@ async function DashboardPage() {
 
    return (
       <div className="w-full text-center">
-         <p> Dashboard Page</p>
+         <p>Hi, {session?.user?.name}</p>
          <LogOut />
       </div>
    )
