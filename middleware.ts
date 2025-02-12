@@ -12,12 +12,13 @@ export default auth(async (req) => {
    const isPrivateRoute = privateRoutes.includes(nextUrl.pathname);
    const isAuthRoute = nextUrl.pathname.includes("/auth");
    const isApiRoute = nextUrl.pathname.includes("/api");
+   const isHomePage = nextUrl.pathname === "/"
 
    if (isApiRoute) {
       return
    }
 
-   if (isLoggedIn && isAuthRoute) {
+   if (isLoggedIn && isAuthRoute || isHomePage) {
       return Response.redirect(`${url}/dashboard`)
    }
 

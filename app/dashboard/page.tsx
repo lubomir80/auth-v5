@@ -1,17 +1,19 @@
 
 import { auth } from "@/auth"
-import LogOut from "@/components/ui/auth/logout-button";
+import TransactionsList from "@/components/TransactionsList";
+import { getTransactionsByUserId } from "@/data/transactions";
+
 
 
 async function DashboardPage() {
    const session = await auth();
-   console.log(session);
+   const transactions = await getTransactionsByUserId(session?.user?.id)
 
 
    return (
       <div className="w-full text-center">
          <p>Hi, {session?.user?.name}</p>
-         <LogOut />
+         <TransactionsList transactions={transactions} />
       </div>
    )
 }
