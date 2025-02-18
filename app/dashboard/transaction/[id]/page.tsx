@@ -1,4 +1,7 @@
+import { unstable_noStore as noStore } from "next/cache";
+import EditTransactionForm from "@/components/edit-transaction-form";
 import { getTransactionById } from "@/data/transactions";
+import Link from "next/link";
 
 type PageProps = {
    params: {
@@ -10,11 +13,30 @@ type PageProps = {
 
 
 async function SingleTransactionPage({ params }: PageProps) {
-   const transaction = await getTransactionById(params.id)
+   noStore()
+   const { id } = await params
+   const transaction = await getTransactionById(id)
+
+   if (!transaction) {
+      return (
+         <div>
+            Not transaction found!
+         </div>
+      )
+   }
+
+
 
    return (
       <div className="container">
-         <h1>Transaction Details</h1>
+         <div className="flex items-center gap-5 mb-5">
+            <h1 className="text-xl font-bold">Transaction Details</h1>
+            <Link
+               className="bg-black text-white p-2 hover:bg-slate-800 rounded-md"
+               href={"/dashboard"}>
+               Back
+            </Link>
+         </div>
 
          <div className="transaction-detail">
             <p><strong>Transaction ID:</strong> {transaction?.transactionId}</p>
@@ -44,7 +66,7 @@ async function SingleTransactionPage({ params }: PageProps) {
          </div>
 
 
-
+         <EditTransactionForm transaction={transaction} />
 
       </div>
    )

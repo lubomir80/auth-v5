@@ -1,5 +1,8 @@
 import * as z from "zod"
 
+
+
+
 export const RegisterSchema = z.object({
    email: z.string().email({
       message: "Please enter a valid email address"
@@ -28,3 +31,13 @@ export const LoginSchema = z.object({
 })
 
 export type TLoginSchema = z.infer<typeof LoginSchema>
+
+
+export const AddTransactionSchema = z.object({
+   amount: z.number().positive("Amount must be a positive number"), // Ensures amount is positive
+   type: z.enum(["INCOME", "EXPENSE"]), // Restricts values to "INCOME" or "EXPENSE"
+   category: z.string().min(1, "Category is required"), // Ensures category is not empty
+
+})
+
+export type TAddTransactionSchema = z.infer<typeof AddTransactionSchema>

@@ -1,3 +1,4 @@
+"use client"
 import {
    Table,
    TableBody,
@@ -8,6 +9,7 @@ import {
    TableRow,
 } from "@/components/ui/table"
 import Link from "next/link";
+import { deleteTransaction } from "@/actions/delete-transaction";
 
 type Transaction = {
    transactionId: string;
@@ -27,6 +29,11 @@ type Transactions = {
 
 
 function TransactionsList({ transactions }: Transactions) {
+   async function handleDelete(id: string) {
+      await deleteTransaction(id)
+   }
+
+
 
    if (transactions?.length === 0) {
       return (
@@ -36,9 +43,8 @@ function TransactionsList({ transactions }: Transactions) {
       )
    }
 
-
    return (
-      <Table className="max-w-[600px] mx-auto ">
+      <Table>
          <TableCaption>A list of your transactions.</TableCaption>
          <TableHeader >
             <TableRow >
@@ -58,12 +64,19 @@ function TransactionsList({ transactions }: Transactions) {
                         {item.type}
                      </TableCell>
                      <TableCell>{item.category}</TableCell>
-                     <TableCell>
+                     <TableCell className="flex items-center gap-4">
                         <Link
                            className="bg-black text-white rounded-md p-2 hover:bg-black/85"
                            href={`dashboard/transaction/${item.transactionId}`}>
                            Open
                         </Link>
+                        <form action={() => handleDelete(item.transactionId)}>
+                           <button
+                              type='submit'
+                              className='bg-red-500 rounded-md p-2 text-white hover:bg-red-700'>
+                              Delete
+                           </button>
+                        </form>
                      </TableCell>
                   </TableRow>
                )
